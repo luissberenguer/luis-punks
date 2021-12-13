@@ -1,5 +1,5 @@
 const deploy = async () => {
-    // El deployer nos permite desplegar el CI a la red que tengamos configurada
+    // El deployer nos permite desplegar CI a la red que tengamos configurada
     const [deployer] = await ethers.getSigners(); // Llenado automaticamente con la informacion de nuestra configuracion
 
     console.log("Deploying contract with the account: ", deployer.address);
