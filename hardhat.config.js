@@ -11,5 +11,9 @@ module.exports = {
       url: `https://rinkeby.infura.io/v3/${proyectId}`,
       accounts: [privateKey],
     },
+    ropsten: {
+      url: `https://ropsten.infura.io/v3/${proyectId}`,
+      accounts: [privateKey],
+    },
   },
 };

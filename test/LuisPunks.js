@@ -55,7 +55,16 @@ describe('Luis Punks Contract', () => {
 
             await deployed.mint();
 
-            const tokenURI = await deployed.tokenURI(0)
+            const tokenURI = await deployed.tokenURI(0);
+            const stringifiedURI = await tokenURI.toString();
+            const [, base65JSON] = stringifiedURI.split(
+                "data:application/json;base64,"
+            );
+
+            const stringifiedMetadata = await Buffer.from(base65JSON, "base64").toString("ascii");
+            const metadata = JSON.parse(stringifiedMetadata);
+
+            expect(metadata).to.have.all.keys("name", "description", "image");
  
         })
     } )

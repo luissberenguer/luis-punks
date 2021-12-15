@@ -5,7 +5,7 @@ const deploy = async () => {
     console.log("Deploying contract with the account: ", deployer.address);
     //Toma la informacion del cache de configuracion y nos trae la infomacion que necesita para desplega los metodos
     const LuisPunks = await ethers.getContractFactory("LuisPunks");
-    const deployed = await LuisPunks.deploy();
+    const deployed = await LuisPunks.deploy(10000);
 
     console.log("LuisPunks is deployed at: ", deployed.address)
 };
