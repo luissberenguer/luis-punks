@@ -4,26 +4,29 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./Base64.sol";
 import "./LuisPunksDNA.sol";
 
-contract PlatziPunks is ERC721, ERC721Enumerable, LuisPunksDNA {
+contract LuisPunks is ERC721, ERC721Enumerable, LuisPunksDNA {
     using Counters for Counters.Counter;
+    using Strings for  uint256;
 
     Counters.Counter private _idCounter;
     uint256 public maxSupply;
     mapping(uint256 => uint256) public tokenDNA;
 
-    constructor(uint256 _maxSupply) ERC721("PlatziPunks", "PLPKS") {
+    constructor(uint256 _maxSupply) ERC721("LuisPunks", "LP") {
         maxSupply = _maxSupply;
     }
 
     function mint() public {
         uint256 current = _idCounter.current();
-        require(current < maxSupply, "No PlatziPunks left :(");
+        require(current < maxSupply, "No LuisPunks left :(");
 
         tokenDNA[current] = deterministicPseudoRandomDNA(current, msg.sender);
         _safeMint(msg.sender, current);
+        _idCounter.increment();
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -91,7 +94,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, LuisPunksDNA {
         string memory jsonURI = Base64.encode(
             abi.encodePacked(
                 '{ "name": "LuisPunks #',
-                tokenId,
+                tokenId.toString(),
                 '", "description": "Luis Punks are randomized Avataaars stored on chain to teach DApp development on Platzi", "image": "',
                 image,
                 '"}'

@@ -218,13 +218,13 @@ contract LuisPunksDNA {
     // Get attributes
     uint8 constant ADN_SECTION_SIZE = 2;
 
-    function _getDNASection(uint256 _dna, uint8 _rightDiscard)
+    function _getDNASection(uint256 _dna, uint256 _rightDiscard)
         internal
         pure
-        returns (uint8)
+        returns (uint256)
     {
         return
-            uint8(
+            uint256(
                 (_dna % (1 * 10**(_rightDiscard + ADN_SECTION_SIZE))) /
                     (1 * 10**_rightDiscard)
             );
@@ -235,12 +235,12 @@ contract LuisPunksDNA {
         view
         returns (string memory)
     {
-        uint8 dnaSection = _getDNASection(_dna, 0);
+        uint256 dnaSection = _getDNASection(_dna, 0);
         return _accessoriesType[dnaSection % _accessoriesType.length];
     }
 
     function getClotheColor(uint256 _dna) public view returns (string memory) {
-        uint8 dnaSection = _getDNASection(_dna, 2);
+        uint256 dnaSection = _getDNASection(_dna, 2);
         return _clotheColor[dnaSection % _clotheColor.length];
     }
 
